@@ -1,0 +1,27 @@
+[users]
+
+[users.rename]
+userid = "user_id"
+createdat = "created_at"
+
+[users.date]
+source = "created_at"
+target = "date"
+
+[users.defaults]
+country = "unknown"
+status = "active"
+
+[[users.derive]]
+op = "map"
+src = "status"
+dst = "status_label"
+
+[users.derive.mapping]
+active = "ACTIVE"
+inactive = "INACTIVE"
+
+[[users.filters]]
+col = "status"
+op = "ne"
+val = "deleted"

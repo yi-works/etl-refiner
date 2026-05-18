@@ -1,0 +1,41 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+
+# Virtual env (uv)
+.venv/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Test / Coverage
+.coverage
+htmlcov/
+
+# IDE
+.vscode/
+.idea/
+
+# Database (state manager)
+*.db
+
+# Parquet / data files
+*.parquet
+*.csv
+*.xlsx
+
+# Benchmark output
+*.prof
+
+# pytest
+.pytest_cache/
+
+# benchmark
+.benchmarks*/
