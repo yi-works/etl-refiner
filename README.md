@@ -1,26 +1,28 @@
 ## Overview
 
-A config-driven ETL preprocessing core module built on Polars LazyFrame. This project provides a
-flexible and extensible data processing pipeline without requiring code changes.
+PolarsのLazyFrameを基盤とした、\
+**設定ファイル（config）主導のETL前処理コアモジュール**
+
+コードを変更することなく、柔軟で拡張可能なデータ処理パイプラインを提供する
 
 ---
 
 ## Features
 
-- Preprocessing pipeline (normalization, transformation, filtering, default injection)
-- Config-driven transformation logic (no code changes required)
-- Dispatcher pattern for extensible operations
-- State management (job lifecycle, checkpoint, lock control)
-- Efficient large-scale data processing with Polars LazyFrame
+- 前処理パイプライン（正規化、変換、フィルタリング、デフォルト値の補完）
+- 設定ファイルによる変換ロジック（コード変更不要）
+- Dispatcherパターンによる拡張性の高い処理
+- 状態管理（ジョブライフサイクル、チェックポイント、ロック制御）
+- Polars LazyFrameによる大規模データの高速処理
 
 ---
 
 ## Design
 
-- Pipeline-based architecture
-- Config-driven transformations
-- Dispatcher pattern for extensibility
-- Separation of concerns
+- パイプラインベースのアーキテクチャ
+- 設定ファイル主導の変換
+- 拡張性を高めるDispatcherパターン
+- 関心の分離（Separation of Concerns）
 
 ---
 
@@ -30,7 +32,7 @@ flexible and extensible data processing pipeline without requiring code changes.
 python main.py input.csv config.toml
 ```
 
-Example configuration:
+設定ファイル例：
 
 ```toml
 [test]
@@ -47,10 +49,10 @@ dst = "flag"
 
 ## Architecture
 
-The pipeline is fully config-driven, and each transformation step is modular and extensible.
+パイプラインは完全に設定ファイルベースで動作し、\
+各処理ステップはモジュール化されており拡張可能
 
-```mermaid
-flowchart TD
+```flowchart TD
     A[config.toml] --> B[DataRefiner]
     B --> C[normalize_columns]
     C --> D[rename]
@@ -61,9 +63,11 @@ flowchart TD
     H --> I[result]
 ```
 
+---
+
 ## Performance
 
-Measured using repeated runs with `time.perf_counter`.
+`time.perf_counter` を用いて複数回実行の平均を測定した
 
 | Rows    | Time      |
 | ------- | --------- |
@@ -71,14 +75,15 @@ Measured using repeated runs with `time.perf_counter`.
 | 10,000  | \~0.0001s |
 | 100,000 | \~0.0003s |
 
-- Execution time remains nearly constant due to vectorized processing
-- Benchmark averaged over multiple runs
-- Performance may vary depending on workload and environment
+---
 
 ## Why This Project
 
-This project demonstrates:
+このプロジェクトは以下を示す目的となる：
 
-Ability to design extensible data processing architectures Strong abstraction and separation of
-concerns Practical experience with scalable data pipelines Applying design patterns (Dispatcher,
-pipeline architecture)
+- 拡張可能なデータ処理アーキテクチャの設計能力
+- 抽象化と関心の分離の徹底
+- スケーラブルなデータパイプライン開発の実践経験
+- デザインパターンの適用（Dispatcher、パイプライン構造）
+
+---

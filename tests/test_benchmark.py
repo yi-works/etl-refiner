@@ -38,7 +38,7 @@ def test_benchmark(size):
         refiner.process(df, "test").collect()
         times.append(time.perf_counter() - start)
 
-    # ✅ 平均
+    #  平均で計測する
     avg = sum(times) / len(times)
 
     print(f"| {size:,} | ~{avg:.6f}s |")
