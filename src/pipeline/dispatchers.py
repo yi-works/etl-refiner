@@ -57,48 +57,10 @@ def op_const(lf: pl.LazyFrame, s: Dict) -> pl.LazyFrame:
     )
 
 
-def op_extract_localpart(lf: pl.LazyFrame, s: Dict) -> pl.LazyFrame:
-    return lf.with_columns(
-        pl.col(s["src"]).cast(pl.Utf8).str.split("@").list.get(0).alias(s["dst"])
-    )
-
-
-def op_add_date_col_ret(lf: pl.LazyFrame, s: Dict) -> pl.LazyFrame:
-
-    src = s["src"]
-    calendar_lf: pl.LazyFrame = s["calendar_lf"]
-    assert isinstance(calendar_lf, pl.LazyFrame), type(calendar_lf)
-
-    day_name_col = s.get("day_name_col", "day_name")
-    cal_yw_col = s.get("calendar_yearweek_col", "year+week")
-    dst_yearweek = s.get("dst_yearweek", "year_week")
-
-    lf = lf.with_columns(
-        (
-            pl.col(src).str.split("-").list.get(0).cast(pl.Int32) * 100
-            + pl.col(src).str.split("-").list.get(1).cast(pl.Int32)
-        ).alias(dst_yearweek)
-    )
-
-    return lf.join(
-        calendar_lf.select(
-            [
-                pl.col(cal_yw_col).alias(dst_yearweek),
-                day_name_col,
-                "date",
-            ]
-        ),
-        on=[dst_yearweek, day_name_col],
-        how="left",
-    )
-
-
 DISPATCHER = {
     "map": op_map,
     "is_in": op_is_in,
     "compare": op_compare,
     "const": op_const,
     "filter": op_filter,
-    "extract_localpart": op_extract_localpart,
-    "add_date_col_ret": op_add_date_col_ret,
 }
