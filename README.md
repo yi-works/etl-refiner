@@ -52,7 +52,8 @@ dst = "flag"
 パイプラインは完全に設定ファイルベースで動作し、\
 各処理ステップはモジュール化されており拡張可能
 
-```flowchart TD
+```mermaid
+graph TD
     A[config.toml] --> B[DataRefiner]
     B --> C[normalize_columns]
     C --> D[rename]
